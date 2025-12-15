@@ -1,6 +1,6 @@
 # Gamma Manager
 
-![Gamma Manager UI](GammaManager.png?raw=true)
+![Gamma Manager UI](GammaManager1.png?raw=true)
 
 **Gamma Manager** allows you to manage gamma ramp options independently for RGB channels or altogether. Designed for Windows with a modern, dark-themed interface.
 
