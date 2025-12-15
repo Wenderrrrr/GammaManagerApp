@@ -5,8 +5,9 @@
 **Gamma Manager** allows you to manage gamma ramp options independently for RGB channels or altogether. Designed for Windows with a modern, dark-themed interface.
 
 ## Installation
-Download the latest installer from the [Releases](https://github.com/Wenderrrrr/GammaManagerApp/releases) page.
-Run `GammaSetup.exe` to install.
+**[Download GammaSetup.exe](https://github.com/Wenderrrrr/GammaManagerApp/raw/main/Output/GammaSetup.exe)**
+
+Run the installer to set up the application.
 
 ## Features
 *   **Gamma Control**: Range 0.30 — 4.40 (Default 1.00).
