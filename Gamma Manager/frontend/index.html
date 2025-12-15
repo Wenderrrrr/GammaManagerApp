@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamma Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <svg class="loading-logo" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 19H22L12 2Z" fill="url(#paint0_linear_loading)" stroke="#00d2ff" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                <defs>
+                    <linearGradient id="paint0_linear_loading" x1="12" y1="2" x2="12" y2="19"
+                        gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#00D2FF" stop-opacity="0.2" />
+                        <stop offset="1" stop-color="#3A7BD5" stop-opacity="0.1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading Gamma Manager...</p>
+        </div>
+    </div>
+
+    <div class="background-glow"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 19H22L12 2Z" fill="url(#paint0_linear)" stroke="#00d2ff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="12" y1="2" x2="12" y2="19"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#00D2FF" stop-opacity="0.2" />
+                            <stop offset="1" stop-color="#3A7BD5" stop-opacity="0.1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>Gamma Manager</h1>
+            </div>
+            <select id="monitor-select" class="monitor-dropdown">
+                <option value="0">Monitor 1</option>
+            </select>
+        </header>
+
+        <nav class="menu">
+            <button class="menu-item active" data-section="gamma">
+                <span class="icon">γ</span>
+                <span>Gamma</span>
+            </button>
+            <button class="menu-item" data-section="contrast">
+                <span class="icon">◐</span>
+                <span>Contrast</span>
+            </button>
+            <button class="menu-item" data-section="brightness">
+                <span class="icon">☀</span>
+                <span>Brightness</span>
+            </button>
+            <button class="menu-item" data-section="presets">
+                <span class="icon">★</span>
+                <span>Presets</span>
+            </button>
+        </nav>
+
+        <main>
+            <!-- Gamma Section -->
+            <div class="control-panel section active" id="gamma-section">
+                <div class="slider-group main-gamma">
+                    <label for="gamma-all">Global Gamma</label>
+                    <div class="slider-container">
+                        <input type="range" id="gamma-all" min="30" max="440" value="100">
+                        <span class="value-display" id="val-gamma-all">1.00</span>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="channels">
+                    <div class="slider-group channel-red">
+                        <label for="gamma-red">Red Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="gamma-red" min="30" max="440" value="100">
+                            <span class="value-display" id="val-gamma-red">1.00</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-group channel-green">
+                        <label for="gamma-green">Green Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="gamma-green" min="30" max="440" value="100">
+                            <span class="value-display" id="val-gamma-green">1.00</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-group channel-blue">
+                        <label for="gamma-blue">Blue Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="gamma-blue" min="30" max="440" value="100">
+                            <span class="value-display" id="val-gamma-blue">1.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contrast Section -->
+            <div class="control-panel section" id="contrast-section">
+                <div class="slider-group main-contrast">
+                    <label for="contrast-all">Global Contrast</label>
+                    <div class="slider-container">
+                        <input type="range" id="contrast-all" min="10" max="300" value="100">
+                        <span class="value-display" id="val-contrast-all">1.00</span>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="channels">
+                    <div class="slider-group channel-red">
+                        <label for="contrast-red">Red Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="contrast-red" min="10" max="300" value="100">
+                            <span class="value-display" id="val-contrast-red">1.00</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-group channel-green">
+                        <label for="contrast-green">Green Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="contrast-green" min="10" max="300" value="100">
+                            <span class="value-display" id="val-contrast-green">1.00</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-group channel-blue">
+                        <label for="contrast-blue">Blue Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="contrast-blue" min="10" max="300" value="100">
+                            <span class="value-display" id="val-contrast-blue">1.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brightness Section -->
+            <div class="control-panel section" id="brightness-section">
+                <div class="slider-group main-brightness">
+                    <label for="brightness-all">Global Brightness</label>
+                    <div class="slider-container">
+                        <input type="range" id="brightness-all" min="-100" max="100" value="0">
+                        <span class="value-display" id="val-brightness-all">0.00</span>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="channels">
+                    <div class="slider-group channel-red">
+                        <label for="brightness-red">Red Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="brightness-red" min="-100" max="100" value="0">
+                            <span class="value-display" id="val-brightness-red">0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-group channel-green">
+                        <label for="brightness-green">Green Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="brightness-green" min="-100" max="100" value="0">
+                            <span class="value-display" id="val-brightness-green">0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-group channel-blue">
+                        <label for="brightness-blue">Blue Channel</label>
+                        <div class="slider-container">
+                            <input type="range" id="brightness-blue" min="-100" max="100" value="0">
+                            <span class="value-display" id="val-brightness-blue">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Presets Section -->
+            <div class="control-panel section" id="presets-section">
+                <div class="preset-manager">
+                    <h3>Saved Presets</h3>
+                    <div class="preset-list" id="preset-list">
+                        <p class="empty-message">No presets saved yet</p>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="preset-actions">
+                        <input type="text" id="preset-name-input" placeholder="Preset name..." class="preset-input">
+                        <button id="btn-save-preset" class="btn primary">Save Current Settings</button>
+                    </div>
+
+                    <div class="hotkey-info">
+                        <p><strong>Custom Keyboard Shortcuts:</strong></p>
+                        <p>Click "Set Hotkey" on any preset to assign your own shortcut</p>
+                        <p class="note">Hotkeys work even when minimized to tray!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="btn-reset" class="btn secondary">Reset Default</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Gamma Manager v1.2</p>
+        </footer>
+    </div>
+
+    <!-- Hotkey Assignment Dialog -->
+    <div id="hotkey-dialog" class="dialog-overlay">
+        <div class="dialog-content">
+            <h3>Assign Hotkey</h3>
+            <p>Press your desired key combination for preset: <strong id="hotkey-preset-name"></strong></p>
+            <input type="text" id="hotkey-capture" class="hotkey-input" placeholder="Press keys..." readonly>
+            <div id="hotkey-display" class="hotkey-display"></div>
+            <div class="dialog-buttons">
+                <button id="hotkey-save" class="btn primary">Save</button>
+                <button id="hotkey-cancel" class="btn secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
