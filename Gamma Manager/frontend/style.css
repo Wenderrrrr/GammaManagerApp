@@ -8,6 +8,7 @@
     --accent-green: #4dff88;
     --accent-blue: #4d88ff;
     --glass-border: rgba(255, 255, 255, 0.08);
+    color-scheme: dark;
 }
 
 /* Loading Screen */
@@ -156,6 +157,11 @@ header {
 .monitor-dropdown:focus {
     outline: none;
     border-color: var(--accent-primary);
+}
+
+.monitor-dropdown option {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
 }
 
 /* Menu Navigation */
