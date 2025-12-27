@@ -122,29 +122,10 @@ namespace Gamma_Manager
 
         private void Window_Load(object sender, EventArgs e)
         {
-            int screenWidth = Screen.PrimaryScreen.Bounds.Size.Width;
-            int windowWidth = Width;
-            int screenHeight = Screen.PrimaryScreen.Bounds.Size.Height;
-            int windowHeight = Height;
-            int tmp = Screen.PrimaryScreen.Bounds.Height;
-            int TaskBarHeight = tmp - Screen.PrimaryScreen.WorkingArea.Height;
-
-            //dpi
-            /*int PSH = SystemParameters.PrimaryScreenHeight;
-            int PSBH = Screen.PrimaryScreen.Bounds.Height;
-            double ratio = PSH / PSBH;
-            int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
-            TaskBarHeight *= ratio;*/
-
-            // Let StartPosition.CenterScreen handle window positioning
-            // Location = new Point(screenWidth - windowWidth, screenHeight - (windowHeight + TaskBarHeight));
-
             // Enable dark title bar
             EnableDarkTitleBar();
 
-            // Hide window until WebView2 is fully loaded
-            this.Opacity = 0;
-
+            // Initialize WebView2
             InitializeWebView();
 
             // Initialize hotkey manager
@@ -169,9 +150,6 @@ namespace Gamma_Manager
             // Disable default context menu
             webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
 
-            // Subscribe to NavigationCompleted to show window after page loads
-            webView.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
-
              string htmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "frontend", "index.html");
              if (File.Exists(htmlPath))
              {
@@ -180,16 +158,7 @@ namespace Gamma_Manager
              else
              {
                  MessageBox.Show("Frontend files not found! Please check installation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 this.Opacity = 1; // Show window even on error
              }
-        }
-
-        private void CoreWebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
-        {
-            // Show the window with a smooth fade-in after WebView2 content is loaded
-            this.Invoke(new Action(() => {
-                this.Opacity = 1;
-            }));
         }
 
         // Bridge Methods
@@ -453,10 +422,18 @@ namespace Gamma_Manager
 
         protected override void OnFormClosing(System.Windows.Forms.FormClosingEventArgs e)
         {
+            // Unregister hotkeys
             if (hotkeyManager != null)
             {
                 hotkeyManager.UnregisterAllHotkeys();
             }
+            
+            // Hide and dispose notify icon to prevent ghost icons in tray
+            if (notifyIcon != null)
+            {
+                notifyIcon.Visible = false;
+            }
+            
             base.OnFormClosing(e);
         }
 
@@ -482,22 +459,40 @@ namespace Gamma_Manager
         //tray
         private void Window_Resize(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            // Window stays in taskbar when minimized - no special handling needed
+        }
+
+        private void notifyIcon_Click(object sender, EventArgs e)
+        {
+            // Only handle left clicks, not right clicks (context menu)
+            MouseEventArgs mouseEvent = e as MouseEventArgs;
+            if (mouseEvent != null && mouseEvent.Button == MouseButtons.Left)
             {
-                Hide();
+                // Restore if minimized, otherwise just bring to front
+                if (WindowState == FormWindowState.Minimized)
+                {
+                    WindowState = FormWindowState.Normal;
+                }
+                this.Activate();
             }
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            Show();
-            WindowState = FormWindowState.Normal;
+            if (WindowState == FormWindowState.Minimized)
+            {
+                WindowState = FormWindowState.Normal;
+            }
+            this.Activate();
         }
 
         private void toolSettings_Click(object sender, EventArgs e)
         {
-            Show();
-            WindowState = FormWindowState.Normal;
+            if (WindowState == FormWindowState.Minimized)
+            {
+                WindowState = FormWindowState.Normal;
+            }
+            this.Activate();
         }
 
         private void toolExit_Click(object sender, EventArgs e)
